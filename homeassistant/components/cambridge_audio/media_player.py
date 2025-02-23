@@ -48,6 +48,8 @@ PREAMP_FEATURES = (
     | MediaPlayerEntityFeature.VOLUME_STEP
 )
 
+CONTROL_BUS_FEATURES = MediaPlayerEntityFeature.VOLUME_STEP
+
 TRANSPORT_FEATURES: dict[TransportControl, MediaPlayerEntityFeature] = {
     TransportControl.PLAY: MediaPlayerEntityFeature.PLAY,
     TransportControl.PAUSE: MediaPlayerEntityFeature.PAUSE,
@@ -91,6 +93,8 @@ class CambridgeAudioDevice(CambridgeAudioEntity, MediaPlayerEntity):
         features = BASE_FEATURES
         if self.client.state.pre_amp_mode:
             features |= PREAMP_FEATURES
+        if self.client.state.control_bus:
+            features |= CONTROL_BUS_FEATURES
         if TransportControl.PLAY_PAUSE in controls:
             features |= MediaPlayerEntityFeature.PLAY | MediaPlayerEntityFeature.PAUSE
         for control in controls:
