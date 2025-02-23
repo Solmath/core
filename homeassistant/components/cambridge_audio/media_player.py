@@ -6,6 +6,7 @@ from datetime import datetime
 from typing import Any
 
 from aiostreammagic import (
+    ControlBusMode,
     RepeatMode as CambridgeRepeatMode,
     ShuffleMode,
     StreamMagicClient,
@@ -93,7 +94,7 @@ class CambridgeAudioDevice(CambridgeAudioEntity, MediaPlayerEntity):
         features = BASE_FEATURES
         if self.client.state.pre_amp_mode:
             features |= PREAMP_FEATURES
-        if self.client.state.control_bus:
+        if self.client.state.control_bus is not ControlBusMode.OFF:
             features |= CONTROL_BUS_FEATURES
         if TransportControl.PLAY_PAUSE in controls:
             features |= MediaPlayerEntityFeature.PLAY | MediaPlayerEntityFeature.PAUSE
