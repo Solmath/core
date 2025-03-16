@@ -138,7 +138,7 @@ async def test_entity_supported_features_with_controlBus(
     await setup_integration(hass, mock_config_entry)
 
     mock_stream_magic_client.state.pre_amp_mode = False
-    mock_stream_magic_client.state.control_bus_mode = ControlBusMode.AMPLIFIER
+    mock_stream_magic_client.state.control_bus = ControlBusMode.AMPLIFIER
 
     await mock_state_update(mock_stream_magic_client)
     await hass.async_block_till_done()
